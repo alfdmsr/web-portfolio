@@ -1,68 +1,119 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --background: 120 100% 0%;
+    --foreground: 120 100% 50%;
+
+    --card: 120 100% 0%;
+    --card-foreground: 120 100% 50%;
+
+    --popover: 120 100% 0%;
+    --popover-foreground: 120 100% 50%;
+
+    --primary: 120 100% 50%;
+    --primary-foreground: 120 100% 0%;
+
+    --secondary: 120 100% 15%;
+    --secondary-foreground: 120 100% 50%;
+
+    --muted: 120 100% 15%;
+    --muted-foreground: 120 100% 40%;
+
+    --accent: 120 100% 15%;
+    --accent-foreground: 120 100% 50%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 120 100% 25%;
+    --input: 120 100% 25%;
+    --ring: 120 100% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 120 100% 2%;
+    --sidebar-foreground: 120 100% 50%;
+    --sidebar-primary: 120 100% 50%;
+    --sidebar-primary-foreground: 120 100% 0%;
+    --sidebar-accent: 120 100% 5%;
+    --sidebar-accent-foreground: 120 100% 50%;
+    --sidebar-border: 120 100% 10%;
+    --sidebar-ring: 120 100% 50%;
   }
-  a:hover {
-    color: #747bff;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
-  button {
-    background-color: #f9f9f9;
+
+  body {
+    @apply bg-terminal-black text-terminal-green font-mono overflow-x-hidden;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-terminal-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-terminal-green-dim rounded-full;
+  }
+}
+
+@layer components {
+  .terminal-header {
+    @apply font-mono text-terminal-green text-lg sm:text-xl md:text-2xl font-bold relative;
+  }
+
+  .terminal-prompt::before {
+    content: "> ";
+    @apply text-terminal-green-dim;
+  }
+
+  .terminal-text {
+    @apply font-mono text-terminal-green relative;
+  }
+
+  .terminal-input {
+    @apply bg-terminal-black border border-terminal-green-dim text-terminal-green py-1 px-2 outline-none focus:border-terminal-green transition-colors;
+  }
+
+  .terminal-window {
+    @apply border border-terminal-green-dim bg-terminal-black rounded-md p-4 shadow-[0_0_8px_rgba(0,255,65,0.3)];
+  }
+
+  .scan-line {
+    @apply absolute inset-0 h-[2px] bg-black opacity-30 z-10 pointer-events-none;
+  }
+
+  .terminal-glow {
+    @apply before:absolute before:inset-0 before:bg-terminal-glow before:opacity-30 before:blur-xl before:pointer-events-none before:rounded-md relative;
+  }
+}
+
+@layer utilities {
+  .text-glitch {
+    @apply animate-glitch;
+  }
+
+  .typing-animation {
+    @apply overflow-hidden whitespace-nowrap border-r-4 border-terminal-green animate-typing;
+  }
+
+  .flicker-effect {
+    @apply animate-flicker;
+  }
+
+  .noise-bg {
+    @apply relative overflow-hidden before:absolute before:inset-0 before:bg-[url('/noise.png')] before:opacity-[0.02] before:pointer-events-none;
   }
 }
